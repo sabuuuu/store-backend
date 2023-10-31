@@ -12,14 +12,6 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    name : {
-        type : String,
-        required : true
-    },
-    surname :{
-        type : String,
-        required : true
-    },
     picture : {
         type : String,
         required : false,
@@ -28,7 +20,7 @@ const userSchema = new mongoose.Schema({
 })
 
 //static signup method
-userSchema.statics.signup = async function (email, password ,name, surname , picture) {
+userSchema.statics.signup = async function (email, password ) {
 
     //validation
     if(!email ){
@@ -36,12 +28,6 @@ userSchema.statics.signup = async function (email, password ,name, surname , pic
     }
     if(!password ){
         throw Error('Password is required')
-    }
-    if(!surname ){
-        throw Error('Surname is required')
-    }
-    if(!name ){
-        throw Error('Name is required')
     }
 
     if(!validator.isEmail(email)){
@@ -59,7 +45,7 @@ userSchema.statics.signup = async function (email, password ,name, surname , pic
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
     
-    const user = await this.create({email, password : hash , name, surname , picture});
+    const user = await this.create({email, password : hash , picture});
     return user;
 }
 

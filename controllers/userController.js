@@ -1,4 +1,3 @@
-import mongoose from "mongoose"
 import {User} from "../models/userModel.js"
 import jwt from "jsonwebtoken";
 import {JWT_SECRET} from "../config.js"
@@ -30,16 +29,16 @@ export const loginUser = async (req, res) => {
 //sign up user
 export const signupUser = async (req, res) => {
 
-    const {email, password, name , surname, picture} = req.body;
+    const {email, password, picture} = req.body;
 
     try{
-        const user = await User.signup(email, password ,name, surname , picture);
+        const user = await User.signup(email, password , picture);
 
         //create token
         const token = createToken(user._id);
 
         res.status(200).json({
-            name, surname, picture, email , token
+            picture, email , token
         })
     }catch(error){
         res.status(400).json({
