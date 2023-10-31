@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
 })
 
 //static signup method
-userSchema.statics.signup = async function (email, password ) {
+userSchema.statics.signup = async function (email, password , picture) {
 
     //validation
     if(!email ){
